@@ -58,16 +58,14 @@
 
         A collapse example here:
         -->
+        <a href="#exam" data-toggle="collapse">Start Exam</a>
         <div id="exam" class="collapse">
-            Click to expand elements within the collapse div
-            
             {% if user.is_authenticated %}
             <!-- <HINT> If user is authenticated, show course exam with a list of question -->
                 {% for question in course.question_set.all %}
                 <!-- <HINT> Each example will have many questions -->
 
                 <!-- <HINT> Each question will have many choices -->
-
 
                 <!-- <HINT> Create a form to collect the selected choices for all questions -->
                 <!-- <HINT> For each question choice, you may create a checkbox input like
@@ -80,7 +78,7 @@
                         <div class="card-header"><h5>{{ question.text}}</h5></div>
                         {% csrf_token %}
                         <div class="form-group">
-                            {% for choice in questions.choice_set %}
+                            {% for choice in question.choice_set.all %}
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input type="checkbox" name="choice_{{choice.id}}"
@@ -90,13 +88,13 @@
                                 </div>
                             {% endfor %}
                         </div>
-                    </div>
-                        <input class="btn btn-success btn-block" type="submit" value="Submit">
+                    </div>                        
                 </form>
 
                 <!--Check here to see more details Bootstrap checkbox
                 https://www.w3schools.com/bootstrap4/bootstrap_forms_inputs.asp-->
             {% endfor %}
+            <input class="btn btn-success btn-block" type="submit" value="Submit">
         {% endif %}
         </div>
     </div>
